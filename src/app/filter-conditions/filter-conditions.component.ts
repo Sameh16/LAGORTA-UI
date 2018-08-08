@@ -10,6 +10,8 @@ export class FilterConditionsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
+  conditions=[];
 
 }
