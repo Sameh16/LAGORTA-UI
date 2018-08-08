@@ -1,3 +1,11 @@
-<p>
-  side-bar works!
-</p>
+<mat-list>
+  <mat-list-item
+  *ngFor="let metric of metrics"
+  >
+  <h4 draggable="true" (dragstart)="drag($event)" [id]="metric.id">{{metric.value}}</h4>
+  </mat-list-item>
+</mat-list>
+
+<div class="drop-item" width="100px" height="30px" (drop)="drop($event)" (dragover)="allowDrop($event)">
+
+</div>
