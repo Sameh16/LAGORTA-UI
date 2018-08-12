@@ -148,6 +148,8 @@
   font-size: x-small;
   text-align: center;
   padding: 3px 1px 3px 2px;
+  margin-left: 0.3%;
+  margin-right: 0.3%; 
 }
 
 .metrics .custom-select-operator{
