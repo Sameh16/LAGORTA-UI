@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filter-conditions.component.css']
 })
 export class FilterConditionsComponent implements OnInit {
-
+  conditions = [];
   constructor() { }
 
   ngOnInit() {
+
   }
+
 
 }
