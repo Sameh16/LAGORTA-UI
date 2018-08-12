@@ -3,3 +3,51 @@
     height: 40px;
     border: 1px black solid;
 }
+.title{
+    font-family: Poppins Latin;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.39;
+    letter-spacing: normal;
+    text-align: left;
+    color: #162a4e;
+}
+
+.metric-categories p{
+    display: inline;
+    font-family: Poppins Latin;
+    font-size: 11px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.27;
+    letter-spacing: normal;
+    text-align: left;
+    color: #cccccc;
+    margin-right: 5%; 
+}
+
+.metrics-list{
+    font-family: Poppins Latin;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 3.25;
+    letter-spacing: normal;
+    text-align: left;
+    color: #5d6c85;
+    padding-left:0;
+    padding-right:0;  
+}
+
+.mat-list-item-content{
+    padding: 0 !important;
+}
+.layout{
+    background-color: #ffffff;
+    background-color: var(--white);
+    border: solid 1px #ebebeb;
+}
