@@ -35,7 +35,9 @@ drop(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData('id');
     const el  = document.getElementById(data);
-    ev.target.innerHTML = el.innerHTML;
+    const content = el.innerHTML;
+    ev.target.innerHTML  = content;
+    // add object to list of metrics
 
 }
 

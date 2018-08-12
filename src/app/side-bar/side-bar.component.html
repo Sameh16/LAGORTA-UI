@@ -1,11 +1,18 @@
-<mat-list>
-  <mat-list-item
-  *ngFor="let metric of metrics"
-  >
-  <h4 draggable="true" (dragstart)="drag($event)" [id]="metric.id">{{metric.value}}</h4>
-  </mat-list-item>
-</mat-list>
-
-<div class="drop-item" width="100px" height="30px" (drop)="drop($event)" (dragover)="allowDrop($event)">
-
+<div class="container">
+  <h4>metrics</h4>
+  <p>12 metrics </p> <p>6 categories</p>
+  <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+  <mat-list>
+    <mat-list-item
+    *ngFor="let metric of metrics"
+    >
+    <h4 draggable="true" (dragstart)="drag($event)" [id]="metric.id">{{metric.value}}</h4>
+    </mat-list-item>
+  </mat-list>
+  
+  <div class="drop-item" width="100px" height="30px" (drop)="drop($event)" (dragover)="allowDrop($event)">
+  </div>
 </div>

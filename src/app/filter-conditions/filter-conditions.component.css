@@ -119,6 +119,8 @@
   border-radius: 10%;
   border: 1.5px black dashed;
   padding: 0.1% 0.4%;
+  margin-left: 0.4%;
+  margin-right:0.4%;  
 }
 .droppable-Active{
   display: inline-block;
@@ -176,4 +178,7 @@
   background-color: yellow;
 }
 
+.display{
+  display: none;
+}
 

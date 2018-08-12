@@ -1,0 +1,35 @@
+1-search && mkae it puity  [sameh]
+2-operator options  "when cliclk to option add dropdown " [mahmoud]
+3-add new choose && add submit button to add new Chosse [mahmoud]
+4-make all div dropped && deleted choose conditions && change droped metric [sameh]
+5-create logic for one choose [mahmoud]
+6-create logic all choose together and validation [sameh]
+7-change active class (And ,oR) [mahmoud] video 71
+8-tabView Filtered conditions && selected mertics [mahmoud]
+9-choose caps and en caps [mahmoud]
+10-deleted metric ×	[sameh]
+
+
+
+choose obj ={
+list:[ 
+	{type:op, value}
+]	
+}
+
+chooices obj = [
+{choose , and| or|null}
+]
+
+
+choices = [
+	{
+	choice:{
+		type:boolean,	// (0 for meric , 1 for operator)
+		value:''	//
+	},
+	gate:boolean	(0 for and , 1 for or) // gate for next choice
+	},
+]
+
+

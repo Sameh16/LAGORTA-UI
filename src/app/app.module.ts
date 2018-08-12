@@ -8,13 +8,13 @@ import { FilterConditionsComponent } from './filter-conditions/filter-conditions
 import { SideBarComponent } from './side-bar/side-bar.component';
 
 
-const appRoutes: Routes = [
-  {
-    path: 'menu',
-    component: FilterConditionsComponent
-  }
+// const appRoutes: Routes = [
+//   {
+//     path: 'menu',
+//     component: FilterConditionsComponent
+//   }
 
-];
+// ];
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     MatListModule,
-    RouterModule.forRoot(appRoutes)
+    // RouterModule.forRoot(appRoutes)
     ],
   providers: [],
   bootstrap: [AppComponent]
