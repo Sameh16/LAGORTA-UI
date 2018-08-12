@@ -23,22 +23,9 @@ export class SideBarComponent implements OnInit {
 
   }
 
-allowDrop(ev) {
-    ev.preventDefault();
-}
+  drag(ev) {
+      ev.dataTransfer.setData('metric', ev.target.id);
+  }
 
-drag(ev) {
-    ev.dataTransfer.setData('id', ev.target.id);
-}
-
-drop(ev) {
-    ev.preventDefault();
-    const data = ev.dataTransfer.getData('id');
-    const el  = document.getElementById(data);
-    const content = el.innerHTML;
-    ev.target.innerHTML  = content;
-    // add object to list of metrics
-
-}
 
 }
