@@ -19,89 +19,85 @@
 <div style="background-color: #f8f8f8">
     <div class="container">
         <h2>Filtered Conditions</h2>
-        <div *ngFor="let condition of conditions; let idx = index">
-            <div class="FilteredCondition">
-                <div class="card text-left">
-                    <div class="card-body Choose">
-                        <p class="card-text">Choose</p>
-                        <ul class="operators">
-                            <li class="operator">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </li>
-
-                            <li class="operator">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
-                            </li>
-                            <li class="operator">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                            </li>
-                            <li class="operator">/</li>
-                            <li class="operator">
-                                <i class="fa fa-percent" aria-hidden="true"></i>
-                            </li>
-                        </ul>
-                        <ul class="operators">
-                            <li class="operator">=</li>
-                            <li class="operator">></li>
-                            <li class="operator">=</li>
-                            <li class="operator">=</li>
-                            <li class="operator">!=</li>
-                        </ul>
-                        <button type="button" class="btn btn-dark">AND</button>
-                        <button type="button" class="btn btn-dark">OR</button>
-                        <div class="encaps">
-                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                        </div>
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-
+        <div class="FilteredCondition" *ngFor="let condition of conditions; let idx = index">
+            <div class="card text-left">
+                <div class="card-body Choose">
+                    <p class="card-text">Choose</p>
+                    <ul class="operators">
+                        <li class="operator">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </li>
+                        <li class="operator">
+                            <i class="fa fa-minus" aria-hidden="true"></i>
+                        </li>
+                        <li class="operator">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </li>
+                        <li class="operator">/</li>
+                        <li class="operator">
+                            <i class="fa fa-percent" aria-hidden="true"></i>
+                        </li>
+                    </ul>
+                    <ul class="operators">
+                        <li class="operator">=</li>
+                        <li class="operator">></li>
+                        <li class="operator">=</li>
+                        <li class="operator">=</li>
+                        <li class="operator">!=</li>
+                    </ul>
+                    <button type="button" class="btn btn-dark">AND</button>
+                    <button type="button" class="btn btn-dark">OR</button>
+                    <div class="encaps">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
                     </div>
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+
                 </div>
-                <div class="card">
-                    <div class="card-body metrics">
-                        <div class="droppable" (drop)="drop($event,idx)" (dragover)="allowDrop($event)"></div>
-                        <div class=" droppable-Active">
-                            Running data
-                            <i class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div (drop)="drop($event)" (dragover)="allowDrop($event)" class="card">
+                <div class="card-body metrics">
+                    <div *ngFor="let myChoice of condition.choice" style="display:inline;">
+
+                        <div *ngIf="myChoice.type == 0" class=" droppable-Active">
+                            {{myChoice.value}}
+                            <i class="fa fa-times" aria-hidden="true" (click)="removeMetric($event)"></i>
                         </div>
-                        <div class="droppable-Active">
-                            Running data
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </div>
-                        <div class="droppable droppable-Error">
+
+                        <div *ngIf="myChoice.type == null" class="droppable droppable-Error">
                             .
                         </div>
-                        <select class="custom-select-my">
+                        <select *ngIf="myChoice.type == 1" class="custom-select-my">
                             <option selected>=</option>
                             <option value="1">-</option>
                             <option value="2">×</option>
                             <option value="3">÷</option>
                         </select>
-                        <select class="custom-select-my custom-select-operator">
-                            <option value='1' selected>AND</option>
-                            <option value="3">OR</option>
-                        </select>
                     </div>
+
+                    <select class="custom-select-my custom-select-operator">
+                        <option value='1' selected>AND</option>
+                        <option value="3">OR</option>
+                    </select>
                 </div>
             </div>
             <div *ngIf="condition.gate!=null">
                 <button (click)="changeGate(idx,0)" [ngClass]="{'Active-yellow':!condition.gate}" type="button" class="btn btn-choose">AND</button>
-                <button (click)="changeGate(idx,1)" [ngClass]="{'Active-yellow':condition.gate}" style="margin-left: -0.4%;" type="button" class="btn btn-choose">OR</button>
+                <button (click)="changeGate(idx,1)" [ngClass]="{'Active-yellow':condition.gate}" style="margin-left: -0.4%;" type="button"
+                    class="btn btn-choose">OR</button>
             </div>
         </div>
 
-    </div>
-</div>
-<div class="container rightAdd">
-    <p style="display: inline;">add new group</p>
-    <a (click)="addChoice()" style="cursor: pointer;">
-        <i class="addNewGroup fa fa-plus" aria-hidden="true"></i>
-    </a>
+        <div class="container rightAdd">
+            <p style="display: inline;">add new group</p>
+            <a (click)="addChoice()" style="cursor: pointer;">
+                <i class="addNewGroup fa fa-plus" aria-hidden="true"></i>
+            </a>
 
-</div>
-<div class="container rightDone">
-    <button type="button" class="done btn btn-primary">
-        Done
-        <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-    </button>
+        </div>
+        <div class="container rightDone">
+            <button type="button" class="done btn btn-primary">
+                Done
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            </button>
 
-</div>
+        </div>
