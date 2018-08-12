@@ -6,17 +6,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filter-conditions.component.css']
 })
 export class FilterConditionsComponent implements OnInit {
-  // choice type (0 for meric , 1 for operator)
-  // Gate (0 for meric , 1 for operator)
   conditions = [
     {
-      choice:[{
-        type:0, 
-        value:''
-      }],
-      gate:null  
+      choice: [
+        {
+          type: 0,	// (0 for meric , 1 for operator)
+          value: 'Running data'	//
+        },
+        {
+          type: 1,	// (0 for meric , 1 for operator)
+          value: '2'	//
+        },
+        {
+          type: null,	// (0 for meric , 1 for operator)
+          value: 'Running data'	//
+        },
+      ],
+      gate: null, // (0 for and , 1 for or) gate for next choice
+      isOpened:true // el operators list 
     }
+    // {
+    //   choice: [
+    //     {
+    //       type: 1,	// (0 for meric , 1 for operator)
+    //       value: '2'	//
+    //     }
+    //   ],
+    //   gate: null // (0 for and , 1 for or) gate for next choice
+    // },
+    // {
+    //   choice: [
+    //     {
+    //       type: null,	// (0 for meric , 1 for operator)
+    //       value: 'Running data'	//
+    //     }
+    //   ],
+    //   gate: null // (0 for and , 1 for or) gate for next choice
+    // }
   ];
+
   constructor() { }
 
   ngOnInit() {
@@ -25,28 +53,46 @@ export class FilterConditionsComponent implements OnInit {
   allowDrop(ev) {
     ev.preventDefault();
   }
-  drop(ev,idx) {
+  drop(ev, idx) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData('id');
-    const el  = document.getElementById(data);
+    const el = document.getElementById(data);
     ev.target.innerHTML = el.innerHTML;
   }
-  addChoice(){
-    let size=this.conditions.length;
-    this.conditions[size-1].gate=1;
-    var newChoice={
-      choice:[{
-        type:0, 
-        value:''
+
+  addChoice() {
+    const size = this.conditions.length;
+    this.conditions[size - 1].gate = 1;
+    const newChoice = {
+      choice: [{
+        type: 0,
+        value: ''
       }],
-      gate:null
-    }
+      gate: null,
+      isOpened:true
+    };
     this.conditions.push(newChoice);
   }
-  changeGate(idx,type){
-    if(type==0)
-      this.conditions[idx].gate=0;
-    else  this.conditions[idx].gate=1;
+  changeGate(idx, type) {
+    if (type === 0) {
+      this.conditions[idx].gate = 0;
+    } else { this.conditions[idx].gate = 1; }
+  }
+  removeMetric($event) {
+    $event.target.classList.toggle('display');
+  }
+  deleteCondition(idx){
+    console.log(idx);
+    this.conditions.splice(idx,1);
+    if(this.conditions.length>0){
+      const size = this.conditions.length;
+      this.conditions[size - 1].gate = null;
+    }
+  }
+  changeOperationsState(idx){
+    if(this.conditions[idx].isOpened)
+      this.conditions[idx].isOpened=false;
+    else  this.conditions[idx].isOpened=true;
   }
 
 }
