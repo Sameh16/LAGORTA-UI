@@ -1,3 +1,4 @@
+<i class="material-icons">keyboard_arrow_left</i>
 <!-- <div class="container">
   <div class="layer">
     <p class="Filtered-conditions">Filtered conditions</p>
@@ -18,7 +19,7 @@
 
 <div style="background-color: #f8f8f8">
     <div class="container">
-        <h2>Filtered Conditions</h2>
+        <h2 class="FilteredTitle" >Filtered Conditions</h2>
         <div class="FilteredCondition" *ngFor="let condition of conditions; let idx = index">
             <div class="card text-left">
                 <div class="card-body Choose">
@@ -33,7 +34,8 @@
                         <li class="operator">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </li>
-                        <li class="operator">/</li>
+                        <li class="operator">
+                            <i class="fa" >/</i></li>
                         <li class="operator">
                             <i class="fa fa-percent" aria-hidden="true"></i>
                         </li>
@@ -54,7 +56,7 @@
 
                 </div>
             </div>
-            <div (drop)="drop($event)" (dragover)="allowDrop($event)" class="card">
+            <div (drop)="drop($event,idx)" (dragover)="allowDrop($event)" class="card">
                 <div class="card-body metrics">
                     <div *ngFor="let myChoice of condition.choice" style="display:inline;">
 

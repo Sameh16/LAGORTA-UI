@@ -56,7 +56,8 @@ export class FilterConditionsComponent implements OnInit {
     ev.preventDefault();
     const data = ev.dataTransfer.getData('id');
     const el = document.getElementById(data);
-    ev.target.innerHTML = el.innerHTML;
+    const content = el.innerText;
+    this.conditions[idx].choice.push({type: 0, value: content});
   }
 
   addChoice() {
