@@ -181,4 +181,23 @@
 .display{
   display: none;
 }
+.addNewGroup{
+  margin-left: 0.5%;
+  color: #014ecf;
+  width: 10.1px;
+  height: 10.1px;
+}
+.rightAdd{
+  text-align: right;
+}
+.rightDone{
+  text-align: right;
+  text-align: end;
+}
+.done{
+  width: 126px;
+  height: 34px;
+  border-radius: 24px;
+  background-color: #0049b0;
+}
 

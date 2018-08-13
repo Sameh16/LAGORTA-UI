@@ -5,10 +5,16 @@
 5-create logic for one choose [mahmoud]
 6-create logic all choose together and validation [sameh]
 7-change active class (And ,oR) [mahmoud] video 71
-8-tabView Filtered conditions && selected mertics [mahmoud]
+8-tabView Filtered conditions && selected mertics [mahmoud] 
 9-choose caps and en caps [mahmoud]
 10-deleted metric ×	[sameh]
-
+===========================
+2-operator options  "when click to option add dropdown " [mahmoud] // not now
+3-add new choose && add submit button to add new Chosse [mahmoud] [Done]
+5-create logic for one choose [mahmoud]
+7-change active class (And ,oR) [mahmoud] video 71
+8-tabView Filtered conditions && selected mertics [mahmoud] [Done]
+9-choose caps and en caps [mahmoud]
 
 
 choose obj ={
