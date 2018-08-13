@@ -43,20 +43,18 @@
 
 }
 
-.operator .fa{
+.operators .fa{
   font-size: 14px;
   color: #004ecf;
 }
 
 .encaps{
   background-color: #deebff;
-  width: 3%;
-  height: 2%;
   padding: 0% 1%;
   display: inline-block;
   text-align: center;
   border-radius: 54.2%;
-  
+  margin-left: 0.8%;
 }
 .encaps .fa-chevron-right{
   color: #162a4e;
@@ -83,7 +81,12 @@
   text-align: center;
   color: #ffffff;
   color: var(--white);
-  margin: 0 0.5%;
+  margin: 0 0.2%;
+}
+.Choose .btn:nth-child(3){
+  margin-left:1%;
+  margin-right:0; 
+  padding: 0.5;
 }
 
 
@@ -95,7 +98,8 @@
   border: 1.5px black dashed;
   padding: 0.1% 0.4%;
   margin-left: 0.4%;
-  margin-right:0.4%;  
+  margin-right:0.4%; 
+   
 }
 .droppable-Active{
   display: inline-block;
@@ -103,14 +107,21 @@
   border-radius: 10%;
   border: solid 0.5px #8fa9ff;
   padding: 0.1% 2% 0.1% 0.4%;
-  font-size: x-small;
+  font-family: Poppins Latin;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  text-align: left;
+  color: #004ecf;
 }
 .droppable-Error{
   display: inline-block;
   background-color: red;
   border-radius: 10%;
   border: solid 0.5px #ff978ff5;
-  font-size: x-small;
 }
 .metrics .fa-times{
   padding-left: 11%;
@@ -119,23 +130,22 @@
 }
 
 .metrics .custom-select-my{
-  font-size: 75%;
-  background-color: white;
-  border-radius:12%;
-  font-size: x-small;
+  display: inline-block ;
   text-align: center;
-  padding: 3px 1px 3px 2px;
+  padding: 0 1%;
   margin-left: 0.3%;
   margin-right: 0.3%; 
-}
-
-.metrics .custom-select-operator{
-  font-size: 75%;
-  background-color:#23272b;
-  border-radius:12%;
-  font-size: x-small;
-  color: white;
-  text-align: center;
+  background-color: #ffffff;
+  background-color: var(--white);
+  border: solid 0.5px #cccccc;
+  font-family: Poppins Latin;
+  font-size: 14px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.19;
+  letter-spacing: normal;
+  color: #004ecf;
 }
 
 .fa-trash-o{

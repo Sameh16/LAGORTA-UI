@@ -1,22 +1,3 @@
-<i class="material-icons">keyboard_arrow_left</i>
-<!-- <div class="container">
-  <div class="layer">
-    <p class="Filtered-conditions">Filtered conditions</p>
-    <div class="BG">
-      <p class="Choose">Choose</p> 
-      <div class="Rectangle-1959">
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-      </div>
-      <!--<mat-icon class="Rectangle-1959">home</mat-icon>-->
-<!-- 
-      <div>metric</div>
-      <div class="operator">operation</div>
-      <div>operatorAndOr</div>
-    </div>
-  
-  </div>
-</div> -->
-
 <div style="background-color: #f8f8f8">
     <div class="container">
         <h2 class="FilteredTitle" >Filtered Conditions</h2>
@@ -24,62 +5,57 @@
             <div class="card text-left">
                 <div class="card-body Choose">
                     <p class="card-text">Choose</p>
-                    <ul class="operators">
-                        <li class="operator">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </li>
-                        <li class="operator">
-                            <i class="fa fa-minus" aria-hidden="true"></i>
-                        </li>
-                        <li class="operator">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </li>
-                        <li class="operator">
-                            <i class="fa" >/</i></li>
-                        <li class="operator">
-                            <i class="fa fa-percent" aria-hidden="true"></i>
-                        </li>
-                    </ul>
-                    <ul class="operators">
-                        <li class="operator">=</li>
-                        <li class="operator">></li>
-                        <li class="operator">=</li>
-                        <li class="operator">=</li>
-                        <li class="operator">!=</li>
-                    </ul>
-                    <button type="button" class="btn btn-dark">AND</button>
-                    <button type="button" class="btn btn-dark">OR</button>
-                    <div class="encaps">
-                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    <div *ngIf="condition.isOpened" style="display: inline">
+                        <ul *ngFor="let myOperators of operators" class="operators">
+
+                            <li *ngFor="let operator of myOperators; index" 
+                            [id]="'operator'+operator.id" class="fa operator" draggable="true" 
+                            (dragstart)="drag($event)">
+                                {{operator.value}}
+                            </li>
+                        </ul>
+                        <button
+                        id='operatorAnd'
+                        draggable="true" 
+                        (dragstart)="drag($event)" 
+                        type="button" class="btn btn-dark">AND</button>
+                        <button
+                        id='operatorOr'
+                        draggable="true" 
+                        (dragstart)="drag($event)" 
+                        type="button" class="btn btn-dark">OR</button>
                     </div>
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    <div class="encaps">
+                            <a (click)="changeOperationsState(idx)" style="cursor: pointer;">
+                                <i *ngIf="!condition.isOpened" class="fa fa-chevron-right" aria-hidden="true"></i>
+                                <i *ngIf="condition.isOpened" class="fa fa-chevron-left" aria-hidden="true"></i>
+                            </a>
+                    </div>
+                    <a (click)="deleteCondition(idx)" style="cursor: pointer;">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
 
                 </div>
             </div>
             <div (drop)="drop($event,idx)" (dragover)="allowDrop($event)" class="card">
                 <div class="card-body metrics">
-                    <div *ngFor="let myChoice of condition.choice" style="display:inline;">
+                    <div *ngFor="let myChoice of condition.choice let index = index" style="display:inline;">
 
                         <div *ngIf="myChoice.type == 0" class=" droppable-Active">
                             {{myChoice.value}}
-                            <i class="fa fa-times" aria-hidden="true" (click)="removeMetric($event)"></i>
+                            <i class="fa fa-times" aria-hidden="true" (click)="removeMetric($event,idx,index)"></i>
                         </div>
 
-                        <div *ngIf="myChoice.type == null" class="droppable droppable-Error">
+                        <div (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)"
+                         *ngIf="myChoice.type == null" 
+                        class="droppable droppable-Error">
                             .
                         </div>
-                        <select *ngIf="myChoice.type == 1" class="custom-select-my">
-                            <option selected>=</option>
-                            <option value="1">-</option>
-                            <option value="2">×</option>
-                            <option value="3">÷</option>
-                        </select>
+                        <div *ngIf="myChoice.type == 1" class="custom-select-my">
+                            {{myChoice.value}}
+                            <i class="fa fa-times" aria-hidden="true" (click)="removeOperator($event,idx,index)"></i>
+                        </div>
                     </div>
-
-                    <select class="custom-select-my custom-select-operator">
-                        <option value='1' selected>AND</option>
-                        <option value="3">OR</option>
-                    </select>
                 </div>
             </div>
             <div *ngIf="condition.gate!=null">
