@@ -18,11 +18,13 @@ export class SideBarComponent implements OnInit {
   ];
 
   constructor() { }
-
+  searchQuery='';
   ngOnInit() {
 
   }
+  search(){
 
+  }
   drag(ev) {
       ev.dataTransfer.setData('metric', ev.target.id);
   }

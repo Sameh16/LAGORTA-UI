@@ -50,4 +50,25 @@
     background-color: #ffffff;
     background-color: var(--white);
     border: solid 1px #ebebeb;
+    padding: 8%;
 }
+
+.search-container button {
+  padding: 6px 10px;
+  margin-right: 16px;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  background-color: #f5f5f5;
+}
+.search-container input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    background-color: #f5f5f5;
+}
+.search-container button:hover {
+  background: #ccc;
+}
+

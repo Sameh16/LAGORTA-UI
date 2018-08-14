@@ -6,35 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filter-conditions.component.css']
 })
 export class FilterConditionsComponent implements OnInit {
+  newMetric=[];
   conditions = [
     {
       choice: [
-        {
-          type: 0,
-          value: ''
-        }
+        // {
+        //   type: 0, // 0 for metric , 1 for operator , 2 for input 
+        //   value: ''
+        // }
       ],
       gate: null, // (0 for and , 1 for or) gate for next choice
       isOpened: true // el operators list
     }
-    // {
-    //   choice: [
-    //     {
-    //       type: 1,	// (0 for meric , 1 for operator)
-    //       value: '2'	//
-    //     }
-    //   ],
-    //   gate: null // (0 for and , 1 for or) gate for next choice
-    // },
-    // {
-    //   choice: [
-    //     {
-    //       type: null,	// (0 for meric , 1 for operator)
-    //       value: 'Running data'	//
-    //     }
-    //   ],
-    //   gate: null // (0 for and , 1 for or) gate for next choice
-    // }
   ];
 
   operators = [
@@ -46,9 +29,22 @@ export class FilterConditionsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    for(var i=0 ; i<=1000 ; i++){
+      this.newMetric.push('');
+    }
   }
 
+  addInput(idx){
+    var size=this.conditions[idx].choice.length;
+    if(this.newMetric.length!=0 && this.conditions[idx].choice[size-1].type==1){
+      this.conditions[idx].choice.push({
+        type:0,
+        value:this.newMetric[idx]
+      }
+      );
+    }
+    this.newMetric[idx]='';
+  }
   allowDrop(ev) {
     ev.preventDefault();
   }
@@ -64,6 +60,8 @@ export class FilterConditionsComponent implements OnInit {
 
   drop(ev, idx) {
     ev.preventDefault();
+    console.log(ev);
+    
     if (ev.dataTransfer.getData('metric') !== '') {
       const data = ev.dataTransfer.getData('metric');
       const el = document.getElementById(data);
@@ -76,8 +74,6 @@ export class FilterConditionsComponent implements OnInit {
       const content = el.innerText;
       this.addOperator(content, idx);
     }
-
-    // this.conditions[idx].choice.push({ type: 0, value: content });
   }
 
   drag(ev) {
@@ -87,12 +83,18 @@ export class FilterConditionsComponent implements OnInit {
   private addOperator(operator, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
-    if (last && last.type === 0) {
-      const newOperator = { type: 1, value: operator };
-      myChoice.push(newOperator);
+    if ((last && operator!=='add input'&& (last.type === 0 || last.type === 2 ) ) || // for operator
+        (operator==='add input' && (myChoice.length===0 || last.type===1))) { // for external input
+      if(operator==='add input'){
+        const newOperator = { type: 2, value: operator };
+        myChoice.push(newOperator);
+      }
+      else{
+        const newOperator = { type: 1, value: operator };
+        myChoice.push(newOperator);
+      }
     } else {
       // error can't drop;
-      alert('error');
     }
   }
 
@@ -101,7 +103,6 @@ export class FilterConditionsComponent implements OnInit {
     const last = myChoice[myChoice.length - 1];
     if (last && last.type === 0) {
       // error can't drop;
-      alert('error');
     } else if (last && last.type === null) {
       last.type = 0;
       last.value = metric;
@@ -115,10 +116,7 @@ export class FilterConditionsComponent implements OnInit {
     const size = this.conditions.length;
     this.conditions[size - 1].gate = 1;
     const newChoice = {
-      choice: [{
-        type: 0,
-        value: ''
-      }],
+      choice: [],
       gate: null,
       isOpened: true
     };
@@ -134,7 +132,7 @@ export class FilterConditionsComponent implements OnInit {
   removeMetric($event, idx, index) {
     const myChoice = this.conditions[idx].choice;
     if (myChoice.length > 1) {
-      myChoice[index].type = null;
+      this.conditions[idx].choice.splice(index, 1);
     } else {
       this.conditions[idx].choice.splice(index, 1);
     }
@@ -144,8 +142,7 @@ export class FilterConditionsComponent implements OnInit {
     const myChoice = this.conditions[idx].choice;
     console.log(myChoice[index + 1]);
     if (!myChoice[index + 1]) {
-
-      myChoice[index].type = null;
+      myChoice.splice(index, 1);
     }
     myChoice.splice(index, 1);
   }
@@ -165,5 +162,7 @@ export class FilterConditionsComponent implements OnInit {
       this.conditions[idx].isOpened = true;
     }
   }
-
+  isOperator(value){
+    return (value!="AND" && value!="OR")
+  }
 }

@@ -1,6 +1,6 @@
-<div style="background-color: #f8f8f8">
+<div style="background-color: #f8f8f8;padding: 2%;">
     <div class="container">
-        <h2 class="FilteredTitle" >Filtered Conditions</h2>
+        <h2 class="FilteredTitle">Filtered conditions</h2>
         <div class="FilteredCondition" *ngFor="let condition of conditions; let idx = index">
             <div class="card text-left">
                 <div class="card-body Choose">
@@ -8,28 +8,21 @@
                     <div *ngIf="condition.isOpened" style="display: inline">
                         <ul *ngFor="let myOperators of operators" class="operators">
 
-                            <li *ngFor="let operator of myOperators; index" 
-                            [id]="'operator'+operator.id" class="fa operator" draggable="true" 
-                            (dragstart)="drag($event)">
+                            <li *ngFor="let operator of myOperators; index" [id]="'operator'+operator.id" class="fa operator" draggable="true" (dragstart)="drag($event)">
                                 {{operator.value}}
                             </li>
                         </ul>
-                        <button
-                        id='operatorAnd'
-                        draggable="true" 
-                        (dragstart)="drag($event)" 
-                        type="button" class="btn btn-dark">AND</button>
-                        <button
-                        id='operatorOr'
-                        draggable="true" 
-                        (dragstart)="drag($event)" 
-                        type="button" class="btn btn-dark">OR</button>
+                        <button id='operatorAnd' draggable="true" (dragstart)="drag($event)" type="button" class="btn btn-dark">AND</button>
+                        <button id='operatorOr' draggable="true" (dragstart)="drag($event)" type="button" class="btn btn-dark">OR</button>
+                        <button id='input' style="margin-left: 4%;" draggable="true" (dragstart)="drag($event)" type="button" class="btn btn-default"
+                            (click)=addInput(idx)>add input</button>
+                        <!-- <input type="text" name="newMetric" [(ngModel)]="newMetric[idx]"> -->
                     </div>
                     <div class="encaps">
-                            <a (click)="changeOperationsState(idx)" style="cursor: pointer;">
-                                <i *ngIf="!condition.isOpened" class="fa fa-chevron-right" aria-hidden="true"></i>
-                                <i *ngIf="condition.isOpened" class="fa fa-chevron-left" aria-hidden="true"></i>
-                            </a>
+                        <a (click)="changeOperationsState(idx)" style="cursor: pointer;">
+                            <i *ngIf="!condition.isOpened" class="fa fa-chevron-right" aria-hidden="true"></i>
+                            <i *ngIf="condition.isOpened" class="fa fa-chevron-left" aria-hidden="true"></i>
+                        </a>
                     </div>
                     <a (click)="deleteCondition(idx)" style="cursor: pointer;">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -41,19 +34,37 @@
                 <div class="card-body metrics">
                     <div *ngFor="let myChoice of condition.choice let index = index" style="display:inline;">
 
-                        <div *ngIf="myChoice.type == 0" class=" droppable-Active">
-                            {{myChoice.value}}
-                            <i class="fa fa-times" aria-hidden="true" (click)="removeMetric($event,idx,index)"></i>
+                        <div *ngIf="myChoice.type == 0" class="BG">
+                            <p style="display:inline;padding: 1%;">{{myChoice.value}}</p>
+                            <i class="material-icons x-icon" (click)="removeMetric($event,idx,index)">
+                                close
+                            </i>
                         </div>
-
-                        <div (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)"
-                         *ngIf="myChoice.type == null" 
-                        class="droppable droppable-Error">
+                        <div (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)" *ngIf="myChoice.type == null" class="droppable droppable-Error">
                             .
                         </div>
-                        <div *ngIf="myChoice.type == 1" class="custom-select-my">
-                            {{myChoice.value}}
-                            <i class="fa fa-times" aria-hidden="true" (click)="removeOperator($event,idx,index)"></i>
+                        <div style="display: inline;" *ngIf="myChoice.type == 1">
+                            <div *ngIf="isOperator(myChoice.value)" class="custom-select-my">
+                                <p style="display:inline;padding: 1%;">{{myChoice.value}}</p>
+                                <i class="material-icons x-icon" (click)="removeOperator($event,idx,index)">
+                                    close
+                                </i>
+                            </div>
+                            <div *ngIf="!isOperator(myChoice.value)" style="display: inline;">
+                                <div class="div-button">
+                                    <p class="And">{{myChoice.value}}</p>
+                                    <!-- <i class="fa fa-times" aria-hidden="true" (click)="removeOperator($event,idx,index)"></i> -->
+                                    <i class="material-icons x-icon" (click)="removeOperator($event,idx,index)">
+                                            close
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                        <div  *ngIf="myChoice.type == 2" style="display: inline;" class=" input-icon">
+                            <input type="text" >
+                            <!-- <i class="material-icons " (click)="removeMetric($event,idx,index)">
+                                close
+                            </i> -->
                         </div>
                     </div>
                 </div>
@@ -77,5 +88,4 @@
                 Done
                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
             </button>
-
         </div>

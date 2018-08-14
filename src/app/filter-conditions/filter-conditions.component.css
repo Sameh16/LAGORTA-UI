@@ -1,5 +1,5 @@
 .FilteredTitle{
-  font-family: Poppins Latin;
+  font-family: sans-serif;
   font-size: 18px;
   font-weight: normal;
   font-style: normal;
@@ -11,7 +11,7 @@
 }
 .card-text{
   display: inline-block;
-  font-family: Poppins Latin;
+  font-family: sans-serif;
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -21,7 +21,20 @@
   text-align: left;
   color: #162a4e;
 }
-
+.x-icon{
+  font-size: 12px;
+  padding: 1%;
+  cursor: pointer;
+  display: inline;
+}
+.BG{
+  display: inline;
+  width: 122px;
+  height: 24px;
+  border-radius: 2px;
+  background-color: #cbe8ff;
+  border: solid 0.5px #8fa9ff;
+}
 .FilteredCondition{
   margin: 2% 0;
 }
@@ -71,7 +84,7 @@
 .Choose .btn{
   border-radius: 2px;
   background-color: #5d6c85;
-  font-family: Poppins Latin;
+  font-family: sans-serif;
   font-size: 12px;
   font-weight: 500;
   font-style: normal;
@@ -107,7 +120,7 @@
   border-radius: 10%;
   border: solid 0.5px #8fa9ff;
   padding: 0.1% 2% 0.1% 0.4%;
-  font-family: Poppins Latin;
+  font-family: sans-serif;
   font-size: 12px;
   font-weight: 500;
   font-style: normal;
@@ -130,15 +143,18 @@
 }
 
 .metrics .custom-select-my{
-  display: inline-block ;
+  display: inline ;
   text-align: center;
-  padding: 0 1%;
+  padding: 0.2%;
+  background-color: #ffffff;
+  background-color: var(--white);
+  border: solid 0.5px #cccccc;
   margin-left: 0.3%;
   margin-right: 0.3%; 
   background-color: #ffffff;
   background-color: var(--white);
   border: solid 0.5px #cccccc;
-  font-family: Poppins Latin;
+  font-family: sans-serif;
   font-size: 14px;
   font-weight: 600;
   font-style: normal;
@@ -178,6 +194,8 @@
 .rightDone{
   text-align: right;
   text-align: end;
+  right: 3%;
+  bottom: 3%;
 }
 .done{
   width: 126px;
@@ -185,4 +203,46 @@
   border-radius: 24px;
   background-color: #0049b0;
 }
-
+.custom-input{
+  display: inline;
+  margin-left: 1%;
+}
+.AND-OR{
+  background-color: #5d6c85;
+  border-radius: 2px;
+  background-color: #5d6c85;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+  color: var(--white);
+  margin: 0 0.2%;
+}
+.div-button{
+  display: inline;
+  border: 1px solid black;
+  text-align: center;
+  width: 6%;
+  background-color: #5d6c85;
+  color: white;
+  margin: 0.3%;
+  align-self: center;
+}
+.And{
+  padding: 1%;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--white);
+  display: inline;
+}

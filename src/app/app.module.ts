@@ -10,6 +10,7 @@ import { SelectMetricsComponent } from './select-metrics/select-metrics.componen
 import { SelectedMetricsComponent } from './selected-metrics/selected-metrics.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 
 // const appRoutes: Routes = [
@@ -33,7 +34,8 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material';
     MatButtonModule, MatCheckboxModule,
     BrowserAnimationsModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule
     // RouterModule.forRoot(appRoutes)
     ],
   providers: [],
