@@ -47,6 +47,7 @@
 
 .operator{
   display: inline;
+  cursor: grab;
   border: 1px black solid;
   text-align: center;
   background-color: #ffffff;
@@ -244,5 +245,26 @@
   letter-spacing: normal;
   text-align: left;
   color: var(--white);
+  display: inline;
+}
+.input-div{
+  width: 15%;
+  height: 12%;
+  background: lightcyan;
+  border:solid;
+  border-color: #162a4e;
+  border : 1px;
+}
+.inputText{
+  width: 15%;
+  height: 12%;
+  background: lightcyan;
+  border: none;
+  outline: none;
+  text-align: center;
+}
+.input-x-icon{
+  font-size: 12px;
+  cursor: pointer;
   display: inline;
 }

@@ -12,10 +12,10 @@
                                 {{operator.value}}
                             </li>
                         </ul>
-                        <button id='operatorAnd' draggable="true" (dragstart)="drag($event)" type="button" class="btn btn-dark">AND</button>
-                        <button id='operatorOr' draggable="true" (dragstart)="drag($event)" type="button" class="btn btn-dark">OR</button>
-                        <button id='input' style="margin-left: 4%;" draggable="true" (dragstart)="drag($event)" type="button" class="btn btn-default"
-                            (click)=addInput(idx)>add input</button>
+                        <button id='operatorAnd' style="cursor: grab;" draggable="true" (dragstart)="drag($event)" type="button" class="btn btn-dark">AND</button>
+                        <button id='operatorOr' style="cursor: grab;" draggable="true" (dragstart)="drag($event)" type="button" class="btn btn-dark">OR</button>
+                        <button id='input' style="cursor: grab;margin-left: 4%;" draggable="true" (dragstart)="drag($event)" type="button" class="btn btn-default"
+                            >add input</button>
                         <!-- <input type="text" name="newMetric" [(ngModel)]="newMetric[idx]"> -->
                     </div>
                     <div class="encaps">
@@ -40,9 +40,9 @@
                                 close
                             </i>
                         </div>
-                        <div (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)" *ngIf="myChoice.type == null" class="droppable droppable-Error">
+                        <!--<div (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)" *ngIf="myChoice.type == null" class="droppable droppable-Error">
                             .
-                        </div>
+                        </div>-->
                         <div style="display: inline;" *ngIf="myChoice.type == 1">
                             <div *ngIf="isOperator(myChoice.value)" class="custom-select-my">
                                 <p style="display:inline;padding: 1%;">{{myChoice.value}}</p>
@@ -60,16 +60,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div  *ngIf="myChoice.type == 2" style="display: inline;" class=" input-icon">
-                            <input type="text" (keyup)="onChangeInput(idx,index)" >
-                            <!-- <i class="material-icons " (click)="removeMetric($event,idx,index)">
+                        <div  *ngIf="myChoice.type == 2" style="display: inline;" class="input-div">
+                            <input class="inputText" placeholder="Write input.." onfocus="this.placeholder = ''"
+                            onblur="this.placeholder = 'Write input..'" type="text" [(ngModel)]="newMetric[idx][index]" (keyup)="onChangeInput(idx,index)" >
+                            <i class="input-x-icon material-icons " (click)="removeMetric($event,idx,index)">
                                 close
-                            </i> -->
+                            </i>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-            <div *ngIf="condition.gate!=null">
+            
+            <div style="margin-top: 2%;" *ngIf="condition.gate!=null">
                 <button (click)="changeGate(idx,0)" [ngClass]="{'Active-yellow':!condition.gate}" type="button" class="btn btn-choose">AND</button>
                 <button (click)="changeGate(idx,1)" [ngClass]="{'Active-yellow':condition.gate}" style="margin-left: -0.4%;" type="button"
                     class="btn btn-choose">OR</button>

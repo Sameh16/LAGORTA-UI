@@ -29,22 +29,30 @@ export class FilterConditionsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    for (let i = 0; i <= 1000; i++) {
-      this.newMetric.push('');
-    }
-  }
-
-  addInput(idx) {
-    const size = this.conditions[idx].choice.length;
-    if (this.newMetric.length !== 0 && this.conditions[idx].choice[size - 1].type === 1) {
-      this.conditions[idx].choice.push({
-        type: 0,
-        value: this.newMetric[idx]
+    for (let i = 0; i <= 500; i++) {
+      let tmpList=[];
+      for (let j = 0; j <= 500; j++){
+        tmpList.push('');
       }
-      );
+      this.newMetric.push(tmpList);
     }
-    this.newMetric[idx] = '';
+    console.log(this.newMetric.length+" ---> "+this.newMetric[0].length);
   }
+  onChangeInput(idx,index){
+    this.conditions[idx].choice[index].type=2;
+    this.conditions[idx].choice[index].value=this.newMetric[idx][index];
+  }
+  // addInput(idx) {
+  //   const size = this.conditions[idx].choice.length;
+  //   if (this.newMetric.length !== 0 && this.conditions[idx].choice[size - 1].type === 1) {
+  //     this.conditions[idx].choice.push({
+  //       type: 0,
+  //       value: this.newMetric[idx]
+  //     }
+  //     );
+  //   }
+  //   this.newMetric[idx] = '';
+  // }
   allowDrop(ev) {
     ev.preventDefault();
   }
@@ -86,7 +94,7 @@ export class FilterConditionsComponent implements OnInit {
     if ((last && operator !== 'add input' && (last.type === 0 || last.type === 2)) || // for operator
       (operator === 'add input' && (myChoice.length === 0 || last.type === 1))) { // for external input
       if (operator === 'add input') {
-        const newOperator = { type: 2, value: operator };
+        const newOperator = { type: 2, value: '' };
         myChoice.push(newOperator);
       } else {
         const newOperator = { type: 1, value: operator };
@@ -132,6 +140,7 @@ export class FilterConditionsComponent implements OnInit {
 
   removeMetric($event, idx, index) {
     const myChoice = this.conditions[idx].choice;
+    this.conditions[idx].choice[index]=this.newMetric[idx][index]='';
     if (myChoice.length > 1) {
       this.conditions[idx].choice.splice(index, 1);
     } else {

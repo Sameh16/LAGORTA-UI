@@ -6,15 +6,16 @@
     </div>
   
     <div class="search-container">
-        <button (click)=search()>
+        <!-- <button (click)=search()>
           <i class="material-icons">search</i>
-        </button>
+        </button> -->
         <input type="text" [(ngModel)]="searchQuery" placeholder="All categories" name="search">
     </div>
     {{searchQuery}}
     <mat-list>
       <mat-list-item 
       class="metrics-list"
+      style="cursor: grab;"
       *ngFor="let metric of metrics"
       draggable="true" (dragstart)="drag($event)" [id]="metric.id"
       >

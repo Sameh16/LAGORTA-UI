@@ -8,13 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SideBarComponent implements OnInit {
 
   @Input('metrics')metrics: any[] = [
-    {value: 'test1', id: 'metric1'},
-    {value: 'test2', id: 'metric2'},
-    {value: 'test3', id: 'metric3'},
-    {value: 'test4', id: 'metric4'},
-    {value: 'test5', id: 'metric5'},
-    {value: 'test6', id: 'metric6'},
-    {value: 'test7', id: 'metric7'},
+    {value: 'Country', id: 'metric1'},
+    {value: 'City', id: 'metric2'},
+    {value: 'Location_Long', id: 'metric3'},
+    {value: 'Location_Lat', id: 'metric4'},
+    {value: 'UserName', id: 'metric5'},
+    {value: 'Bugs', id: 'metric6'},
+    {value: 'LAGORTA', id: 'metric7'},
   ];
 
   constructor() { }
