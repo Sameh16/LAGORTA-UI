@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div  *ngIf="myChoice.type == 2" style="display: inline;" class=" input-icon">
-                            <input type="text" >
+                            <input type="text" (keyup)="onChangeInput(idx,index)" >
                             <!-- <i class="material-icons " (click)="removeMetric($event,idx,index)">
                                 close
                             </i> -->

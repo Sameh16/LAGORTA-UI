@@ -6,12 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filter-conditions.component.css']
 })
 export class FilterConditionsComponent implements OnInit {
-  newMetric=[];
+  newMetric = [];
   conditions = [
     {
       choice: [
         // {
-        //   type: 0, // 0 for metric , 1 for operator , 2 for input 
+        //   type: 0, // 0 for metric , 1 for operator , 2 for input
         //   value: ''
         // }
       ],
@@ -29,21 +29,21 @@ export class FilterConditionsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    for(var i=0 ; i<=1000 ; i++){
+    for (let i = 0; i <= 1000; i++) {
       this.newMetric.push('');
     }
   }
 
-  addInput(idx){
-    var size=this.conditions[idx].choice.length;
-    if(this.newMetric.length!=0 && this.conditions[idx].choice[size-1].type==1){
+  addInput(idx) {
+    const size = this.conditions[idx].choice.length;
+    if (this.newMetric.length !== 0 && this.conditions[idx].choice[size - 1].type === 1) {
       this.conditions[idx].choice.push({
-        type:0,
-        value:this.newMetric[idx]
+        type: 0,
+        value: this.newMetric[idx]
       }
       );
     }
-    this.newMetric[idx]='';
+    this.newMetric[idx] = '';
   }
   allowDrop(ev) {
     ev.preventDefault();
@@ -61,7 +61,7 @@ export class FilterConditionsComponent implements OnInit {
   drop(ev, idx) {
     ev.preventDefault();
     console.log(ev);
-    
+
     if (ev.dataTransfer.getData('metric') !== '') {
       const data = ev.dataTransfer.getData('metric');
       const el = document.getElementById(data);
@@ -83,13 +83,12 @@ export class FilterConditionsComponent implements OnInit {
   private addOperator(operator, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
-    if ((last && operator!=='add input'&& (last.type === 0 || last.type === 2 ) ) || // for operator
-        (operator==='add input' && (myChoice.length===0 || last.type===1))) { // for external input
-      if(operator==='add input'){
+    if ((last && operator !== 'add input' && (last.type === 0 || last.type === 2)) || // for operator
+      (operator === 'add input' && (myChoice.length === 0 || last.type === 1))) { // for external input
+      if (operator === 'add input') {
         const newOperator = { type: 2, value: operator };
         myChoice.push(newOperator);
-      }
-      else{
+      } else {
         const newOperator = { type: 1, value: operator };
         myChoice.push(newOperator);
       }
@@ -114,7 +113,9 @@ export class FilterConditionsComponent implements OnInit {
 
   addChoice() {
     const size = this.conditions.length;
-    this.conditions[size - 1].gate = 1;
+    if (size !== 0) {
+      this.conditions[size - 1].gate = 1;
+    }
     const newChoice = {
       choice: [],
       gate: null,
@@ -162,7 +163,7 @@ export class FilterConditionsComponent implements OnInit {
       this.conditions[idx].isOpened = true;
     }
   }
-  isOperator(value){
-    return (value!="AND" && value!="OR")
+  isOperator(value) {
+    return (value !== 'AND' && value !== 'OR');
   }
 }
