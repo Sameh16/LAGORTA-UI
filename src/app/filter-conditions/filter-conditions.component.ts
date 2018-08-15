@@ -106,7 +106,6 @@ export class FilterConditionsComponent  {
   }
 
   drag(ev, type, idx?, index?) {
-    console.log('type', type, 'id', ev.target.id);
     let dataType: string;
     if (type ===  0) {
       dataType = 'metric';
@@ -175,28 +174,19 @@ export class FilterConditionsComponent  {
     } else { this.conditions[idx].gate = 1; }
   }
 
-  removeMetric($event, idx, index) {
+  remove( idx, index) {
     const myChoice = this.conditions[idx].choice;
     this.conditions[idx].choice.splice(index, 1);
   }
 
-  removeOperator($event, idx, index) {
-    const myChoice = this.conditions[idx].choice;
-    console.log(myChoice[index + 1]);
-    if (!myChoice[index + 1]) {
-      myChoice.splice(index, 1);
-    }
-    myChoice.splice(index, 1);
-  }
-
   deleteCondition(idx) {
-    console.log(idx);
     this.conditions.splice(idx, 1);
     if (this.conditions.length > 0) {
       const size = this.conditions.length;
       this.conditions[size - 1].gate = null;
     }
   }
+
   changeOperationsState(idx) {
     if (this.conditions[idx].isOpened) {
       this.conditions[idx].isOpened = false;
@@ -209,7 +199,4 @@ export class FilterConditionsComponent  {
     return (value !== 'AND' && value !== 'OR');
   }
 
-  removeItem(item, myChoice: any) {
-    myChoice.splice(myChoice.indexOf(item), 1);
-  }
 }

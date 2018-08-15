@@ -18,11 +18,11 @@ export class SideBarComponent implements OnInit {
   ];
 
   constructor() { }
-  searchQuery='';
+  searchQuery = '';
   ngOnInit() {
 
   }
-  search(){
+  search() {
 
   }
   drag(ev) {

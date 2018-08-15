@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectedMetricsComponent } from './selected-metrics.component';
+import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('SelectedMetricsComponent', () => {
   let component: SelectedMetricsComponent;
@@ -8,7 +9,11 @@ describe('SelectedMetricsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectedMetricsComponent ]
+      declarations: [ SelectedMetricsComponent ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+      ]
     })
     .compileComponents();
   }));
