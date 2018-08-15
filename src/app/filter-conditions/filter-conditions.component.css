@@ -28,18 +28,12 @@
   display: inline;
 }
 .BG{
-  display: flex;
-  width: 12%;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  display: inline;
   border-radius: 2px;
   background-color: #cbe8ff;
   border: solid 0.5px #8fa9ff;
-}
-
-.material-icons  {
-  
+  margin-left:0.3%;
+  margin-right:0.3%;  
 }
 .FilteredCondition{
   margin: 2% 0;
@@ -144,11 +138,6 @@
   border: solid 0.5px #ff978ff5;
 }
 
-.metrics{
-  display: flex;
-  justify-content: left;
-  flex-direction: row;
-}
 
 .metrics .custom-select-my{
   display: inline ;
@@ -174,6 +163,7 @@
 
 .fa-trash-o{
   display: inline-block;
+  float: right;
 }
 
 .btn-choose{
@@ -254,12 +244,13 @@
   display: inline;
 }
 .input-div{
-  width: 15%;
-  height: 12%;
+  display: inline;
   background: lightcyan;
   border:solid;
   border-color: #162a4e;
   border : 1px;
+  margin-left: 0.3%;
+  margin-right: 0.3%;
 }
 .inputText{
   width: 15%;
