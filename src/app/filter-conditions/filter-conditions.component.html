@@ -33,7 +33,7 @@
             </div>
             <div  class="card">
                 <div class="card-body metrics">
-                    <div *ngFor="let myChoice of condition.choice let index = index" >
+                    <div *ngFor="let myChoice of condition.choice let index = index" style="display:inline;">
 
                         <div  
                         (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)"
