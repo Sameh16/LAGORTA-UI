@@ -28,12 +28,18 @@
   display: inline;
 }
 .BG{
-  display: inline;
-  width: 122px;
-  height: 24px;
+  display: flex;
+  width: 12%;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
   border-radius: 2px;
   background-color: #cbe8ff;
   border: solid 0.5px #8fa9ff;
+}
+
+.material-icons  {
+  
 }
 .FilteredCondition{
   margin: 2% 0;
@@ -137,10 +143,11 @@
   border-radius: 10%;
   border: solid 0.5px #ff978ff5;
 }
-.metrics .fa-times{
-  padding-left: 11%;
-  color: #162a4e;
-  opacity: 0.8;
+
+.metrics{
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
 }
 
 .metrics .custom-select-my{
@@ -167,7 +174,6 @@
 
 .fa-trash-o{
   display: inline-block;
-  float: right;
 }
 
 .btn-choose{

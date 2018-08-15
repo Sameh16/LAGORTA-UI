@@ -5,8 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './filter-conditions.component.html',
   styleUrls: ['./filter-conditions.component.css']
 })
-export class FilterConditionsComponent implements OnInit {
-  newMetric = [];
+export class FilterConditionsComponent  {
   conditions = [
     {
       choice: [
@@ -28,19 +27,10 @@ export class FilterConditionsComponent implements OnInit {
   ];
   constructor() { }
 
-  ngOnInit() {
-    for (let i = 0; i <= 500; i++) {
-      const tmpList = [];
-      for (let j = 0; j <= 500; j++) {
-        tmpList.push('');
-      }
-      this.newMetric.push(tmpList);
-    }
-    console.log(this.newMetric.length + ' ---> ' + this.newMetric[0].length);
-  }
-  onChangeInput(idx, index) {
+  onChangeInput(element: HTMLInputElement, idx, index) {
+    console.log(element.value);
     this.conditions[idx].choice[index].type = 2;
-    this.conditions[idx].choice[index].value = this.newMetric[idx][index];
+    this.conditions[idx].choice[index].value = element.value;
   }
   // addInput(idx) {
   //   const size = this.conditions[idx].choice.length;
@@ -74,7 +64,7 @@ export class FilterConditionsComponent implements OnInit {
       return;
     }
     let newChoice;
-    if ( localStorage.getItem('idx') !== '') {
+    if (localStorage.getItem('idx') !== null) {
       const tmpIdx = localStorage.getItem('idx');
       const tmpIndex = localStorage.getItem('index');
       newChoice = {...this.conditions[tmpIdx].choice[tmpIndex]};
@@ -86,7 +76,10 @@ export class FilterConditionsComponent implements OnInit {
     if (newChoice === undefined) {
       newChoice = { type: newType, value: el.innerText };
     }
+    const temp = {...myChoice};
+    console.log('before', temp);
     myChoice.splice(index, 0, newChoice);
+    console.log('after', myChoice);
   }
 
   drop(ev, idx) {
@@ -112,32 +105,23 @@ export class FilterConditionsComponent implements OnInit {
     }
   }
 
-  dragInput(ev, idx?, index?) {
-    console.log('drag Input', ev.target.id);
-    ev.dataTransfer.setData('input', ev.target.id);
+  drag(ev, type, idx?, index?) {
+    console.log('type', type, 'id', ev.target.id);
+    let dataType: string;
+    if (type ===  0) {
+      dataType = 'metric';
+    } else if (type === 1) {
+      dataType = 'operator';
+    } else {
+      dataType = 'input';
+    }
+    ev.dataTransfer.setData(dataType, ev.target.id);
     if (idx !== undefined) {
       localStorage.setItem('idx', idx);
       localStorage.setItem('index', index);
     }
   }
 
-  dragMetric(ev, idx?, index?) {
-    console.log('drag Metric', ev.target.id);
-    ev.dataTransfer.setData('metric', ev.target.id);
-    if (idx !== undefined) {
-      localStorage.setItem('idx', idx);
-      localStorage.setItem('index', index);
-    }
-  }
-
-  dragOperator(ev, idx?, index?) {
-    console.log('drag Operator', ev.target.id);
-    ev.dataTransfer.setData('operator', ev.target.id);
-    if (idx !== undefined) {
-      localStorage.setItem('idx', idx);
-      localStorage.setItem('index', index);
-    }
-  }
 
   private addOperator(operator, idx) {
     const myChoice = this.conditions[idx].choice;
@@ -154,7 +138,7 @@ export class FilterConditionsComponent implements OnInit {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
     if ((myChoice.length === 0 || last.type === 1)) {
-      const newOperator = { type: 2, value: input };
+      const newOperator = { type: 2, value: '' };
       myChoice.push(newOperator);
     } else {
       // error can't drop;
@@ -193,12 +177,7 @@ export class FilterConditionsComponent implements OnInit {
 
   removeMetric($event, idx, index) {
     const myChoice = this.conditions[idx].choice;
-    this.conditions[idx].choice[index] = this.newMetric[idx][index] = '';
-    if (myChoice.length > 1) {
-      this.conditions[idx].choice.splice(index, 1);
-    } else {
-      this.conditions[idx].choice.splice(index, 1);
-    }
+    this.conditions[idx].choice.splice(index, 1);
   }
 
   removeOperator($event, idx, index) {

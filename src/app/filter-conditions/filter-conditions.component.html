@@ -9,13 +9,13 @@
                         <ul *ngFor="let myOperators of operators" class="operators">
 
                             <li *ngFor="let operator of myOperators; index" [id]="'operator'+operator.id" 
-                            class="fa operator" draggable="true" (dragstart)="dragOperator($event)">
+                            class="fa operator" draggable="true" (dragstart)="drag($event,1)">
                                 {{operator.value}}
                             </li>
                         </ul>
-                        <button id='operatorAnd' style="cursor: grab;" draggable="true" (dragstart)="dragOperator($event)" type="button" class="btn btn-dark">AND</button>
-                        <button id='operatorOr' style="cursor: grab;" draggable="true" (dragstart)="dragOperator($event)" type="button" class="btn btn-dark">OR</button>
-                        <button id='input' style="cursor: grab;margin-left: 4%;" draggable="true" (dragstart)="dragInput($event)" type="button" class="btn btn-default"
+                        <button id='operatorAnd' style="cursor: grab;" draggable="true" (dragstart)="drag($event,1)" type="button" class="btn btn-dark">AND</button>
+                        <button id='operatorOr' style="cursor: grab;" draggable="true" (dragstart)="drag($event,1)" type="button" class="btn btn-dark">OR</button>
+                        <button id='input' style="cursor: grab;margin-left: 4%;" draggable="true" (dragstart)="drag($event,2)" type="button" class="btn btn-default"
                             >add input</button>
                         <!-- <input type="text" name="newMetric" [(ngModel)]="newMetric[idx]"> -->
                     </div>
@@ -33,23 +33,23 @@
             </div>
             <div  class="card">
                 <div class="card-body metrics">
-                    <div *ngFor="let myChoice of condition.choice let index = index" style="display:inline;">
+                    <div *ngFor="let myChoice of condition.choice let index = index" >
 
                         <div  
                         (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)"
                         *ngIf="myChoice.type == 0" class="BG">
-                            <p [id]="'met'+idx+'met'+index" draggable="true" (dragstart)="dragMetric($event,idx,index)" 
+                            <p [id]="'met'+idx+'met'+index" draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)" 
                             style="display:inline;padding: 1%;">{{myChoice.value}}</p>
                             <i class="material-icons x-icon" (click)="removeMetric($event,idx,index)">
                                 close
                             </i>
                         </div>
-                        <!--<div (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)" *ngIf="myChoice.type == null" class="droppable droppable-Error">
-                            .
-                        </div>-->
-                        <div style="display: inline;" draggable="true" (dragstart)="dragOperator($event,idx,index)" 
+
+                        <div style="display: inline;" draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)" 
                             *ngIf="myChoice.type == 1">
-                            <div  class="custom-select-my">
+                            <div 
+                            *ngIf="isOperator(myChoice.value)"
+                            class="custom-select-my">
                                 <p  [id]="'op'+idx+'op'+index" (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)" *ngIf="isOperator(myChoice.value)"
                                 style="display:inline;padding: 1%;">{{myChoice.value}}</p>
                                 <i class="material-icons x-icon" (click)="removeOperator($event,idx,index)">
@@ -60,7 +60,7 @@
                                 (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)" 
                                 *ngIf="!isOperator(myChoice.value)" style="display: inline;">
                                 <div class="div-button">
-                                    <p [id]="'operat'+idx+'operat'+index" draggable="true" (dragstart)="dragOperator($event,idx,index)"
+                                    <p [id]="'operat'+idx+'operat'+index" draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)"
                                      class="And">{{myChoice.value}}</p>
                                     <!-- <i class="fa fa-times" aria-hidden="true" (click)="removeOperator($event,idx,index)"></i> -->
                                     <i class="material-icons x-icon" (click)="removeOperator($event,idx,index)">
@@ -71,17 +71,18 @@
                         </div>
 
                         <div (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)"
-                        draggable="true" (dragstart)="dragInput($event,idx,index)" 
+                        draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)" 
                          *ngIf="myChoice.type == 2" style="display: inline;" class="input-div">
-                            <input [id]="'input'+idx+'input'+index" 
-                            draggable="true" (dragstart)="dragInput($event,idx,index)"
-                             class="inputText" placeholder="Write input.." onfocus="this.placeholder = ''"
-                            onblur="this.placeholder = 'Write input..'" type="text" [(ngModel)]="newMetric[idx][index]" (keyup)="onChangeInput(idx,index)" >
+                            <input  #value [id]="'input'+idx+'input'+index" 
+                            draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)"
+                             class="inputText" placeholder="Write input.." [value] ="myChoice.value"
+                             type="text" (keyup)="onChangeInput(value,idx,index)" >
                             <i class="input-x-icon material-icons " (click)="removeMetric($event,idx,index)">
                                 close
                             </i>
                             
                         </div>
+                        
                     </div>
                     <div (drop)="drop($event,idx)" (dragover)="allowDrop($event)" class="droppable"></div>
                 </div>
