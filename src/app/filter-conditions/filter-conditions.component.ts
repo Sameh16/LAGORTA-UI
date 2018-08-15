@@ -5,20 +5,16 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './filter-conditions.component.html',
   styleUrls: ['./filter-conditions.component.css']
 })
-export class FilterConditionsComponent  {
+export class FilterConditionsComponent {
   conditions = [
     {
       choice: [
-        // {
-        //   type: 0, // 0 for metric , 1 for operator , 2 for input
-        //   value: ''
-        // }
       ],
       gate: null, // (0 for and , 1 for or) gate for next choice
       isOpened: true // el operators list
     }
   ];
-  viewDefinition=true;
+  viewDefinition = true;
 
   operators = [
     [{ value: '/', id: 'op1' }, { value: '%', id: 'op2' },
@@ -28,15 +24,12 @@ export class FilterConditionsComponent  {
   ];
   constructor() { }
 
-  removeDefinition(){
-    this.viewDefinition=false;
+  removeDefinition() {
+    this.viewDefinition = false;
   }
 
   onChangeInput(value, idx, index) {
-    console.log(value);
-    this.conditions[idx].choice[index].type = 2;
     this.conditions[idx].choice[index].value = value;
-    console.log(this.conditions[idx].choice[index].value);
   }
   allowDrop(ev) {
     ev.preventDefault();
@@ -55,14 +48,13 @@ export class FilterConditionsComponent  {
       data = ev.dataTransfer.getData('input');
       newType = 2;
     } else {
-      console.log('Error');
       return;
     }
     let newChoice;
     if (localStorage.getItem('idx') !== null) {
       const tmpIdx = localStorage.getItem('idx');
       const tmpIndex = localStorage.getItem('index');
-      newChoice = {...this.conditions[tmpIdx].choice[tmpIndex]};
+      newChoice = { ...this.conditions[tmpIdx].choice[tmpIndex] };
       this.conditions[tmpIdx].choice.splice(tmpIndex, 1);
       localStorage.clear();
     }
@@ -71,15 +63,12 @@ export class FilterConditionsComponent  {
     if (newChoice === undefined) {
       newChoice = { type: newType, value: el.innerText };
     }
-    const temp = {...myChoice};
-    console.log('before', temp);
+    const temp = { ...myChoice };
     myChoice.splice(index, 0, newChoice);
-    console.log('after', myChoice);
   }
 
   drop(ev, idx) {
     ev.preventDefault();
-    console.log(ev);
 
     if (ev.dataTransfer.getData('metric') !== '') {
       const data = ev.dataTransfer.getData('metric');
@@ -101,9 +90,8 @@ export class FilterConditionsComponent  {
   }
 
   drag(ev, type, idx?, index?) {
-    console.log('type', type, 'id', ev.target.id);
     let dataType: string;
-    if (type ===  0) {
+    if (type === 0) {
       dataType = 'metric';
     } else if (type === 1) {
       dataType = 'operator';
@@ -111,7 +99,7 @@ export class FilterConditionsComponent  {
       dataType = 'input';
     }
     ev.dataTransfer.setData(dataType, ev.target.id);
-    if (idx !== undefined) {
+    if (idx !== undefined && index !== undefined) {
       localStorage.setItem('idx', idx);
       localStorage.setItem('index', index);
     }
@@ -142,7 +130,7 @@ export class FilterConditionsComponent  {
   addMetric(metric, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
-    if (last && (last.type === 0 || last.type === 2 )) {
+    if (last && (last.type === 0 || last.type === 2)) {
       // error can't drop;
     } else {
       const newMetric = { type: 0, value: metric };
@@ -169,28 +157,19 @@ export class FilterConditionsComponent  {
     } else { this.conditions[idx].gate = 1; }
   }
 
-  removeMetric($event, idx, index) {
+  remove(idx, index) {
     const myChoice = this.conditions[idx].choice;
     this.conditions[idx].choice.splice(index, 1);
   }
 
-  removeOperator($event, idx, index) {
-    const myChoice = this.conditions[idx].choice;
-    console.log(myChoice[index + 1]);
-    if (!myChoice[index + 1]) {
-      myChoice.splice(index, 1);
-    }
-    myChoice.splice(index, 1);
-  }
-
   deleteCondition(idx) {
-    console.log(idx);
     this.conditions.splice(idx, 1);
     if (this.conditions.length > 0) {
       const size = this.conditions.length;
       this.conditions[size - 1].gate = null;
     }
   }
+
   changeOperationsState(idx) {
     if (this.conditions[idx].isOpened) {
       this.conditions[idx].isOpened = false;
@@ -203,7 +182,4 @@ export class FilterConditionsComponent  {
     return (value !== 'AND' && value !== 'OR');
   }
 
-  removeItem(item, myChoice: any) {
-    myChoice.splice(myChoice.indexOf(item), 1);
-  }
 }

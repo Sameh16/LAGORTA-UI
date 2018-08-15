@@ -46,7 +46,7 @@
                         *ngIf="myChoice.type == 0" class="BG">
                             <p [id]="'met'+idx+'met'+index" draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)" 
                             style="display:inline;padding: 1%;">{{myChoice.value}}</p>
-                            <i class="material-icons x-icon" (click)="removeMetric($event,idx,index)">
+                            <i class="material-icons x-icon" (click)="remove(idx,index)">
                                 close
                             </i>
                         </div>
@@ -58,7 +58,7 @@
                             class="custom-select-my">
                                 <p  [id]="'op'+idx+'op'+index" (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)" *ngIf="isOperator(myChoice.value)"
                                 style="display:inline;padding: 1%;">{{myChoice.value}}</p>
-                                <i class="material-icons x-icon" (click)="removeOperator($event,idx,index)">
+                                <i class="material-icons x-icon" (click)="remove(idx,index)">
                                     close
                                 </i>
                             </div>
@@ -69,7 +69,7 @@
                                     <p [id]="'operat'+idx+'operat'+index" draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)"
                                      class="And">{{myChoice.value}}</p>
                                     <!-- <i class="fa fa-times" aria-hidden="true" (click)="removeOperator($event,idx,index)"></i> -->
-                                    <i class="material-icons x-icon" (click)="removeOperator($event,idx,index)">
+                                    <i class="material-icons x-icon" (click)="remove(idx,index)">
                                             close
                                     </i>
                                 </div>
@@ -82,8 +82,8 @@
                             <input  #inputElement [id]="'input'+idx+'input'+index" 
                             draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)"
                              class="inputText" placeholder="Write input.." [value] ="myChoice.value"
-                             type="text" (keyup)="onChangeInput(inputElement.value,idx,index)" >
-                            <i class="input-x-icon material-icons " (click)="removeMetric($event,idx,index)">
+                             type="text" (keyup)="onChangeInput(value,idx,index)" >
+                            <i class="input-x-icon material-icons " (click)="remove(idx,index)">
                                 close
                             </i>
                             
