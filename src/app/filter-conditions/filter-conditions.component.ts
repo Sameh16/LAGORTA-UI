@@ -5,19 +5,16 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './filter-conditions.component.html',
   styleUrls: ['./filter-conditions.component.css']
 })
-export class FilterConditionsComponent  {
+export class FilterConditionsComponent {
   conditions = [
     {
       choice: [
-        // {
-        //   type: 0, // 0 for metric , 1 for operator , 2 for input
-        //   value: ''
-        // }
       ],
       gate: null, // (0 for and , 1 for or) gate for next choice
       isOpened: true // el operators list
     }
   ];
+  viewDefinition = true;
 
   operators = [
     [{ value: '/', id: 'op1' }, { value: '%', id: 'op2' },
@@ -27,22 +24,13 @@ export class FilterConditionsComponent  {
   ];
   constructor() { }
 
-  onChangeInput(element: HTMLInputElement, idx, index) {
-    console.log(element.value);
-    this.conditions[idx].choice[index].type = 2;
-    this.conditions[idx].choice[index].value = element.value;
+  removeDefinition() {
+    this.viewDefinition = false;
   }
-  // addInput(idx) {
-  //   const size = this.conditions[idx].choice.length;
-  //   if (this.newMetric.length !== 0 && this.conditions[idx].choice[size - 1].type === 1) {
-  //     this.conditions[idx].choice.push({
-  //       type: 0,
-  //       value: this.newMetric[idx]
-  //     }
-  //     );
-  //   }
-  //   this.newMetric[idx] = '';
-  // }
+
+  onChangeInput(value, idx, index) {
+    this.conditions[idx].choice[index].value = value;
+  }
   allowDrop(ev) {
     ev.preventDefault();
   }
@@ -60,14 +48,13 @@ export class FilterConditionsComponent  {
       data = ev.dataTransfer.getData('input');
       newType = 2;
     } else {
-      console.log('Error');
       return;
     }
     let newChoice;
     if (localStorage.getItem('idx') !== null) {
       const tmpIdx = localStorage.getItem('idx');
       const tmpIndex = localStorage.getItem('index');
-      newChoice = {...this.conditions[tmpIdx].choice[tmpIndex]};
+      newChoice = { ...this.conditions[tmpIdx].choice[tmpIndex] };
       this.conditions[tmpIdx].choice.splice(tmpIndex, 1);
       localStorage.clear();
     }
@@ -76,15 +63,12 @@ export class FilterConditionsComponent  {
     if (newChoice === undefined) {
       newChoice = { type: newType, value: el.innerText };
     }
-    const temp = {...myChoice};
-    console.log('before', temp);
+    const temp = { ...myChoice };
     myChoice.splice(index, 0, newChoice);
-    console.log('after', myChoice);
   }
 
   drop(ev, idx) {
     ev.preventDefault();
-    console.log(ev);
 
     if (ev.dataTransfer.getData('metric') !== '') {
       const data = ev.dataTransfer.getData('metric');
@@ -107,7 +91,7 @@ export class FilterConditionsComponent  {
 
   drag(ev, type, idx?, index?) {
     let dataType: string;
-    if (type ===  0) {
+    if (type === 0) {
       dataType = 'metric';
     } else if (type === 1) {
       dataType = 'operator';
@@ -115,14 +99,14 @@ export class FilterConditionsComponent  {
       dataType = 'input';
     }
     ev.dataTransfer.setData(dataType, ev.target.id);
-    if (idx !== undefined) {
+    if (idx !== undefined && index !== undefined) {
       localStorage.setItem('idx', idx);
       localStorage.setItem('index', index);
     }
   }
 
 
-  private addOperator(operator, idx) {
+  addOperator(operator, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
     if (last && (last.type === 0 || last.type === 2)) {
@@ -133,7 +117,7 @@ export class FilterConditionsComponent  {
     }
   }
 
-  private addInput(input, idx) {
+  addInput(input, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
     if ((myChoice.length === 0 || last.type === 1)) {
@@ -143,11 +127,10 @@ export class FilterConditionsComponent  {
       // error can't drop;
     }
   }
-
-  private addMetric(metric, idx) {
+  addMetric(metric, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
-    if (last && last.type === 0) {
+    if (last && (last.type === 0 || last.type === 2)) {
       // error can't drop;
     } else {
       const newMetric = { type: 0, value: metric };
@@ -174,7 +157,7 @@ export class FilterConditionsComponent  {
     } else { this.conditions[idx].gate = 1; }
   }
 
-  remove( idx, index) {
+  remove(idx, index) {
     const myChoice = this.conditions[idx].choice;
     this.conditions[idx].choice.splice(index, 1);
   }

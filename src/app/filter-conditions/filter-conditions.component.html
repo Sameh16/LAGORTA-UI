@@ -1,6 +1,12 @@
 <div style="background-color: #f8f8f8;padding: 2%;">
     <div class="container">
         <h2 class="FilteredTitle">Filtered conditions</h2>
+        <div *ngIf="viewDefinition" class="drag-drop-definition">
+            <p class="drag-drop-definition-text">Drag and drop metrics from left panel to draw your lorem ipsum text</p>
+            <i class="material-icons drag-x-icon" (click)="removeDefinition()">
+                    close
+            </i>
+        </div>
         <div class="FilteredCondition" *ngFor="let condition of conditions; let idx = index">
             <div class="card text-left">
                 <div class="card-body Choose">
@@ -73,7 +79,7 @@
                         <div (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)"
                         draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)" 
                          *ngIf="myChoice.type == 2" style="display: inline;" class="input-div">
-                            <input  #value [id]="'input'+idx+'input'+index" 
+                            <input  #inputElement [id]="'input'+idx+'input'+index" 
                             draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)"
                              class="inputText" placeholder="Write input.." [value] ="myChoice.value"
                              type="text" (keyup)="onChangeInput(value,idx,index)" >

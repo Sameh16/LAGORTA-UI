@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectedMetricsComponent } from './selected-metrics.component';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
 describe('SelectedMetricsComponent', () => {
   let component: SelectedMetricsComponent;
   let fixture: ComponentFixture<SelectedMetricsComponent>;

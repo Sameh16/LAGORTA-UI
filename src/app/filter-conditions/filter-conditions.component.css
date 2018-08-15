@@ -265,3 +265,24 @@
   cursor: pointer;
   display: inline;
 }
+.drag-drop-definition{
+  padding: 1%;
+  border-radius: 2px;
+  background-color: #ddf3eb;
+  border: solid 1px #00d27f;
+}
+.drag-drop-definition-text{
+  display: inline;
+  padding: 1%;
+  margin: 0;
+  text-align: left;
+  font-family: sans-serif;
+  color: #0ab270;
+  display: inline;
+}
+.drag-x-icon{
+  float: right;
+  font-size: 18px;
+  color: #00d27f;
+  cursor: pointer;
+}
