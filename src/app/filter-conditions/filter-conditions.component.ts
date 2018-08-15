@@ -113,7 +113,7 @@ export class FilterConditionsComponent implements OnInit {
   }
 
   dragInput(ev, idx?, index?) {
-    console.log('drag Input', ev.target.id));
+    console.log('drag Input', ev.target.id);
     ev.dataTransfer.setData('input', ev.target.id);
     if (idx !== undefined) {
       localStorage.setItem('idx', idx);
@@ -133,7 +133,6 @@ export class FilterConditionsComponent implements OnInit {
   dragOperator(ev, idx?, index?) {
     console.log('drag Operator', ev.target.id);
     ev.dataTransfer.setData('operator', ev.target.id);
-    
     if (idx !== undefined) {
       localStorage.setItem('idx', idx);
       localStorage.setItem('index', index);
