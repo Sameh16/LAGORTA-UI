@@ -18,6 +18,7 @@ export class FilterConditionsComponent  {
       isOpened: true // el operators list
     }
   ];
+  viewDefinition=true;
 
   operators = [
     [{ value: '/', id: 'op1' }, { value: '%', id: 'op2' },
@@ -26,6 +27,10 @@ export class FilterConditionsComponent  {
     { value: '>=', id: 'op11' }, { value: '<', id: 'op8' }, { value: '<=', id: 'op7' }]
   ];
   constructor() { }
+
+  removeDefinition(){
+    this.viewDefinition=false;
+  }
 
   onChangeInput(value, idx, index) {
     console.log(value);
@@ -134,7 +139,6 @@ export class FilterConditionsComponent  {
       // error can't drop;
     }
   }
-
   addMetric(metric, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
