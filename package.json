@@ -28,6 +28,7 @@
     "hammerjs": "^2.0.8",
     "ngx-drag-and-drop-lists": "^1.2.5",
     "rxjs": "^6.0.0",
+    "rxjs-compat": "^6.2.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

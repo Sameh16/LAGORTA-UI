@@ -30,17 +30,17 @@ export class FilterConditionsComponent implements OnInit {
 
   ngOnInit() {
     for (let i = 0; i <= 500; i++) {
-      let tmpList=[];
-      for (let j = 0; j <= 500; j++){
+      const tmpList = [];
+      for (let j = 0; j <= 500; j++) {
         tmpList.push('');
       }
       this.newMetric.push(tmpList);
     }
-    console.log(this.newMetric.length+" ---> "+this.newMetric[0].length);
+    console.log(this.newMetric.length + ' ---> ' + this.newMetric[0].length);
   }
-  onChangeInput(idx,index){
-    this.conditions[idx].choice[index].type=2;
-    this.conditions[idx].choice[index].value=this.newMetric[idx][index];
+  onChangeInput(idx, index) {
+    this.conditions[idx].choice[index].type = 2;
+    this.conditions[idx].choice[index].value = this.newMetric[idx][index];
   }
   // addInput(idx) {
   //   const size = this.conditions[idx].choice.length;
@@ -58,12 +58,35 @@ export class FilterConditionsComponent implements OnInit {
   }
 
   drop2(ev, idx, index) {
-    const data = ev.dataTransfer.getData('metric');
+    let data;
+    let newType;
+    if (ev.dataTransfer.getData('metric') !== '') {
+      data = ev.dataTransfer.getData('metric');
+      newType = 0;
+    } else if (ev.dataTransfer.getData('operator') !== '') {
+      data = ev.dataTransfer.getData('operator');
+      newType = 1;
+    } else if (ev.dataTransfer.getData('input') !== '') {
+      data = ev.dataTransfer.getData('input');
+      newType = 2;
+    } else {
+      console.log('Error');
+      return;
+    }
+    let newChoice;
+    if ( localStorage.getItem('idx') !== '') {
+      const tmpIdx = localStorage.getItem('idx');
+      const tmpIndex = localStorage.getItem('index');
+      newChoice = {...this.conditions[tmpIdx].choice[tmpIndex]};
+      this.conditions[tmpIdx].choice.splice(tmpIndex, 1);
+      localStorage.clear();
+    }
     const el = document.getElementById(data);
-    const content = el.innerText;
-    const myChoice = this.conditions[idx].choice[index];
-    myChoice.type = 0;
-    myChoice.value = content;
+    const myChoice = this.conditions[idx].choice;
+    if (newChoice === undefined) {
+      newChoice = { type: newType, value: el.innerText };
+    }
+    myChoice.splice(index, 0, newChoice);
   }
 
   drop(ev, idx) {
@@ -76,30 +99,64 @@ export class FilterConditionsComponent implements OnInit {
       const content = el.innerText;
       this.addMetric(content, idx);
 
-    } else {
+    } else if (ev.dataTransfer.getData('operator') !== '') {
       const data = ev.dataTransfer.getData('operator');
       const el = document.getElementById(data);
       const content = el.innerText;
       this.addOperator(content, idx);
+    } else {
+      const data = ev.dataTransfer.getData('input');
+      const el = document.getElementById(data);
+      const content = el.innerText;
+      this.addInput(content, idx);
     }
   }
 
-  drag(ev) {
+  dragInput(ev, idx?, index?) {
+    console.log('drag Input', ev.target.id));
+    ev.dataTransfer.setData('input', ev.target.id);
+    if (idx !== undefined) {
+      localStorage.setItem('idx', idx);
+      localStorage.setItem('index', index);
+    }
+  }
+
+  dragMetric(ev, idx?, index?) {
+    console.log('drag Metric', ev.target.id);
+    ev.dataTransfer.setData('metric', ev.target.id);
+    if (idx !== undefined) {
+      localStorage.setItem('idx', idx);
+      localStorage.setItem('index', index);
+    }
+  }
+
+  dragOperator(ev, idx?, index?) {
+    console.log('drag Operator', ev.target.id);
     ev.dataTransfer.setData('operator', ev.target.id);
+    
+    if (idx !== undefined) {
+      localStorage.setItem('idx', idx);
+      localStorage.setItem('index', index);
+    }
   }
 
   private addOperator(operator, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
-    if ((last && operator !== 'add input' && (last.type === 0 || last.type === 2)) || // for operator
-      (operator === 'add input' && (myChoice.length === 0 || last.type === 1))) { // for external input
-      if (operator === 'add input') {
-        const newOperator = { type: 2, value: '' };
-        myChoice.push(newOperator);
-      } else {
-        const newOperator = { type: 1, value: operator };
-        myChoice.push(newOperator);
-      }
+    if (last && (last.type === 0 || last.type === 2)) {
+      const newOperator = { type: 1, value: operator };
+      myChoice.push(newOperator);
+    } else {
+      // error can't drop;
+    }
+  }
+
+  private addInput(input, idx) {
+    const myChoice = this.conditions[idx].choice;
+    const last = myChoice[myChoice.length - 1];
+    if ((myChoice.length === 0 || last.type === 1)) {
+      const newOperator = { type: 2, value: input };
+      myChoice.push(newOperator);
     } else {
       // error can't drop;
     }
@@ -110,9 +167,6 @@ export class FilterConditionsComponent implements OnInit {
     const last = myChoice[myChoice.length - 1];
     if (last && last.type === 0) {
       // error can't drop;
-    } else if (last && last.type === null) {
-      last.type = 0;
-      last.value = metric;
     } else {
       const newMetric = { type: 0, value: metric };
       myChoice.push(newMetric);
@@ -140,7 +194,7 @@ export class FilterConditionsComponent implements OnInit {
 
   removeMetric($event, idx, index) {
     const myChoice = this.conditions[idx].choice;
-    this.conditions[idx].choice[index]=this.newMetric[idx][index]='';
+    this.conditions[idx].choice[index] = this.newMetric[idx][index] = '';
     if (myChoice.length > 1) {
       this.conditions[idx].choice.splice(index, 1);
     } else {
@@ -172,7 +226,12 @@ export class FilterConditionsComponent implements OnInit {
       this.conditions[idx].isOpened = true;
     }
   }
+
   isOperator(value) {
     return (value !== 'AND' && value !== 'OR');
+  }
+
+  removeItem(item, myChoice: any) {
+    myChoice.splice(myChoice.indexOf(item), 1);
   }
 }
