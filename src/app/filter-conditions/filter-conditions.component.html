@@ -73,10 +73,10 @@
                         <div (drop)="drop2($event,idx,index)" (dragover)="allowDrop($event)"
                         draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)" 
                          *ngIf="myChoice.type == 2" style="display: inline;" class="input-div">
-                            <input  #value [id]="'input'+idx+'input'+index" 
+                            <input  #inputElement [id]="'input'+idx+'input'+index" 
                             draggable="true" (dragstart)="drag($event,myChoice.type,idx,index)"
                              class="inputText" placeholder="Write input.." [value] ="myChoice.value"
-                             type="text" (keyup)="onChangeInput(value,idx,index)" >
+                             type="text" (keyup)="onChangeInput(inputElement.value,idx,index)" >
                             <i class="input-x-icon material-icons " (click)="removeMetric($event,idx,index)">
                                 close
                             </i>

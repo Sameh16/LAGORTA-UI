@@ -27,22 +27,12 @@ export class FilterConditionsComponent  {
   ];
   constructor() { }
 
-  onChangeInput(element: HTMLInputElement, idx, index) {
-    console.log(element.value);
+  onChangeInput(value, idx, index) {
+    console.log(value);
     this.conditions[idx].choice[index].type = 2;
-    this.conditions[idx].choice[index].value = element.value;
+    this.conditions[idx].choice[index].value = value;
+    console.log(this.conditions[idx].choice[index].value);
   }
-  // addInput(idx) {
-  //   const size = this.conditions[idx].choice.length;
-  //   if (this.newMetric.length !== 0 && this.conditions[idx].choice[size - 1].type === 1) {
-  //     this.conditions[idx].choice.push({
-  //       type: 0,
-  //       value: this.newMetric[idx]
-  //     }
-  //     );
-  //   }
-  //   this.newMetric[idx] = '';
-  // }
   allowDrop(ev) {
     ev.preventDefault();
   }
@@ -123,7 +113,7 @@ export class FilterConditionsComponent  {
   }
 
 
-  private addOperator(operator, idx) {
+  addOperator(operator, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
     if (last && (last.type === 0 || last.type === 2)) {
@@ -134,7 +124,7 @@ export class FilterConditionsComponent  {
     }
   }
 
-  private addInput(input, idx) {
+  addInput(input, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
     if ((myChoice.length === 0 || last.type === 1)) {
@@ -145,10 +135,10 @@ export class FilterConditionsComponent  {
     }
   }
 
-  private addMetric(metric, idx) {
+  addMetric(metric, idx) {
     const myChoice = this.conditions[idx].choice;
     const last = myChoice[myChoice.length - 1];
-    if (last && last.type === 0) {
+    if (last && (last.type === 0 || last.type === 2 )) {
       // error can't drop;
     } else {
       const newMetric = { type: 0, value: metric };
