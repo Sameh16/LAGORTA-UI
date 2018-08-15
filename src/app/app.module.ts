@@ -11,6 +11,7 @@ import { SelectedMetricsComponent } from './selected-metrics/selected-metrics.co
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { DndListModule } from 'ngx-drag-and-drop-lists';
 
 
 // const appRoutes: Routes = [
@@ -35,7 +36,8 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MatListModule,
     MatTabsModule,
-    FormsModule
+    FormsModule,
+    DndListModule
     // RouterModule.forRoot(appRoutes)
     ],
   providers: [],
